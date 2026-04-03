@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Home</title>
+    <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="output.css">
+  
+</head>
+<body>
+    <script src="https://cdn.tailwindcss.com"></script>
+  <%- include('../partials/navbar') %>
+  <header>
+    <h1><%= editing ? "Edit your home here :" : "Register your property here:" %></h1>
+
+  </header>
+   
+  <Main>
+      <form action="/host/<%= editing ? "edit-home" : "homes" %>" method="POST">
+      <input type="hidden" name="id" value="<%= editing ? foundhome.id : '' %>"  />
+        
+     <input type="text" name="house" value="<%= editing ? foundHome.homeName : '' %>" placeholder="enter your property" />
+     
+     <input type="text" name="price" value="<%= editing ? foundHome.price : '' %>" placeholder="enter your price" />
+     <input type="text" name="location" value="<%= editing ? foundHome.location : '' %>" placeholder="enter location" />
+     <input type="text" name="rating" value="<%= editing ? foundHome.rating : '' %>" placeholder="enter rating" />
+     <input type="text" name="photoUrl" value="<%= editing ? foundHome.photoUrl : '' %>" placeholder="enter photo url" />
+     <textarea type="text" name="description"  placeholder="Describe" ><%= editing ? foundHome.description : '' %></textarea>
+     <input type="submit" value="<%= editing ? "Edit" : " Submit" %>" />
+    </form>
+
+  </Main>
+  
+</body>
+</html>

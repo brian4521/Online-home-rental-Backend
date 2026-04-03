@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Details</title>
+    <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="output.css">
+  
+</head>
+<body>
+    <script src="https://cdn.tailwindcss.com"></script>
+  <%- include('../partials/navbar') %>
+  <header>
+    <center>
+      <h1 class="text-4xl mt-2">This is home details page</h1>
+    </center>
+     <div class="max-w-4xl mx-auto mt-10 bg-white rounded-lg shadow-md overflow-hidden">
+
+    <!-- House Image -->
+    <img src="<%= foundHome.photoUrl %>" 
+         alt="<%= foundHome.house %>" 
+         class="w-full h-96 object-cover">
+
+    <div class="p-6">
+
+      <!-- House Name -->
+      <h1 class="text-3xl font-bold mb-3"><%= foundHome.house %></h1>
+
+      <!-- Location -->
+      <p class="text-gray-700 text-lg mb-2">
+        <strong>Location:</strong> <%= foundHome.location %>
+      </p>
+
+      <!-- Price -->
+      <p class="text-gray-700 text-lg mb-2">
+        <strong>Price:</strong> $<%= foundHome.price %>
+      </p>
+
+      <!-- Rating -->
+      <p class="text-gray-700 text-lg mb-4">
+        <strong>Rating:</strong> ⭐ <%= foundHome.rating %>
+      </p>
+
+      <!-- Book Now Button -->
+      <a href="/booking" 
+         class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600">
+        Book Now
+      </a>
+      <center>
+      <div class="mt-3">
+        <%- include('../partials/favourites') %>
+       
+      </div>
+      </center>
+
+    </div>
+  </div>
+    
+
+  </header>
+   
+ 
+  
+</body>
+</html>
