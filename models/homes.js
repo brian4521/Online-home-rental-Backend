@@ -41,7 +41,8 @@ static findHome(homeID){
 
 
 static deleteHome(deleteId){
-
+ const db=getData()
+ return db.collection('homes').deleteOne({_id: new ObjectId(String(deleteId))})
 
 
 }

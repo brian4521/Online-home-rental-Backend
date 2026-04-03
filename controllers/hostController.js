@@ -45,7 +45,7 @@ exports.homeAdded=(req,res,next)=>{
 exports.editHomes=(req,res,next)=>{
    const editID = req.params.editId
    const editing = req.query.editing === 'true'
-   console.log(editID,editing)
+   console.log("edit homes is here:",editID,editing)
 
    House.findHome(editID).then(foundHome=>{
     
