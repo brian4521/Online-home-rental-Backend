@@ -62,10 +62,10 @@ exports.editHomes=(req,res,next)=>{
 
 exports.applyEditHomes=(req,res,next)=>{
   console.log("here are edit request",req.body)
-  const {id,house,price,location,rating,photoUrl,description}=req.body;
+  const {_id,house,price,location,rating,photoUrl,description}=req.body;
   console.log("here are edit homes",house,price,location,rating,photoUrl,description)
 
-  const home= new House(house, price, location, rating, photoUrl, description, id) 
+  const home= new House(house, price, location, rating, photoUrl, description, _id) 
 
   //save() is async so sometimes remaining code gets executed before it so used then promise
   

@@ -14,8 +14,27 @@ module.exports = class House{
   }
 
 save(){
- const db=getData()
- return db.collection('homes').insertOne(this)
+  const db=getData()
+  const updateFields ={
+    house:this.house,
+    price:this.price,
+    location:this.location,
+    rating:this.rating,
+    photoUrl:this.photoUrl,
+    description:this.description
+  }
+
+  if(this._id){
+    return db.collection('homes').updateOne({_id: new ObjectId(String(this._id))},{ $set:updateFields})
+
+
+  }
+  else{
+     return db.collection('homes').insertOne(this)
+
+  }
+ 
+
 
  
 

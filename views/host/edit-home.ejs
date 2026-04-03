@@ -18,9 +18,10 @@
    
   <Main>
       <form action="/host/<%= editing ? "edit-home" : "homes" %>" method="POST">
-      <input type="hidden" name="id" value="<%= editing ? foundhome.id : '' %>"  />
+      <input type="hidden" name="_id" value="<%= editing ? foundHome._id : '' %>"  />
         
-     <input type="text" name="house" value="<%= editing ? foundHome.homeName : '' %>" placeholder="enter your property" />
+     <input type="text" name="house" value="<%= editing ? foundHome.house : '' %>" placeholder="enter your property" />
+     
      
      <input type="text" name="price" value="<%= editing ? foundHome.price : '' %>" placeholder="enter your price" />
      <input type="text" name="location" value="<%= editing ? foundHome.location : '' %>" placeholder="enter location" />
