@@ -1,67 +1,40 @@
-let path=require("path")
-let rootDir=require("../utility/utilitypath")
-let fs=require("fs")
+const { getData } = require("../utility/databaseUtil")
 
-
-
-const favouritepath=path.join(rootDir,'data','favouriteList.json')
 
 module.exports = class Favourite{
-static addToFavourite(id,callback){
-  Favourite.viewFavourite((items)=>{
+  constructor(houseId){
+    this.houseId=houseId
+  }
 
-    id = id?.toString().trim()
 
-    if(!id) return callback("Invalid ID")
+ save(){  
+  const db=getData()
+  return db.collection('favourites').findOne({houseId:this.houseId}).then(foundfav=>{
+    if(!foundfav){
+       return db.collection('favourites').insertOne(this)
+  
 
-    if(items.includes(id)){
-      callback("house already exist")
-    } else {
-      items.push(id)
-      fs.writeFile(favouritepath, JSON.stringify(items), callback)
     }
-
+    return Promise.resolve()
   })
-}
+ 
+ }
+ 
+ 
+
  static viewFavourite(callback){
-   fs.readFile(favouritepath,(err,data)=>{
-      callback(!err ? JSON.parse(data) : [])
-     
-    })
+  const db = getData()
+  return db.collection('favourites').find().toArray()
    
  }
 
 
-// static deleteFavHomes(deleteId, callback){
-//   Favourite.viewFavourite((favlist)=>{
 
-//     const filteredFavourite = favlist
-//       .filter(Boolean)
-//       .filter(favitem => favitem.trim() !== deleteId.toString().trim())
-
-//     fs.writeFile(favouritepath, JSON.stringify(filteredFavourite), callback)
-
-//   })
-// }
-static deleteHome(deleteId,callback){
- Favourite.viewFavourite(homelistId=>{
-    homelistId=homelistId.filter(item=> deleteId !== item)
-    console.log("filtered data is :", homelistId)
-
-
-
-
-
-      fs.writeFile(favouritepath,JSON.stringify(homelistId),err=>{
-        if(callback){
-          callback(err)
-        }
-      })
-
+static deleteHome(deleteId){
+   const db=getData()
+   return db.collection('favourites').deleteOne({houseId: deleteId})
   
-
-
-  })
+ 
 }
 
 
