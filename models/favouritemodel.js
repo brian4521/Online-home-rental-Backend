@@ -1,4 +1,4 @@
-const { getData } = require("../utility/databaseUtil")
+
 
 
 module.exports = class Favourite{

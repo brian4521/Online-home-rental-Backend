@@ -5,11 +5,13 @@ let path=require("path")
 let rootDir=require("./utility/utilitypath")
 let app=express()
 let {pagenotFound}=require('./controllers/404pagecontroller')
-const {mongoConnect} = require("./utility/databaseUtil")
+
+const { default: mongoose } = require("mongoose")
 
 
 app.set('view engine', 'ejs')
 app.set('views','views')
+
 
 
 
@@ -39,10 +41,18 @@ app.use((req,res,next)=>{
 
 PORT=5000
 
-mongoConnect(()=>{
-  
-  app.listen(PORT,()=>{
-  console.log("server has started")
-})
 
+
+const Db_Url="mongodb+srv://root:root@codehype.qgks6p4.mongodb.net/myDB?retryWrites=true&w=majority"
+
+mongoose.connect(Db_Url).then(()=>{
+  console.log("connected to mongoose")
+  app.listen(PORT,()=>{
+   console.log("server has started")
+})
+  
+
+})
+.catch(err=>{
+  console.log("error while connecting to mongoose",err)
 })
