@@ -60,44 +60,37 @@ exports.editHomes = (req, res, next) => {
 
 exports.applyEditHomes = (req, res, next) => {
   console.log("here are edit request", req.body);
-  const { _id, house, price, location, rating, photoUrl, description } =
-    req.body;
-  console.log(
-    "here are edit homes",
-    house,
-    price,
-    location,
-    rating,
-    photoUrl,
-    description,
-  );
+  const { _id, house, price, location, rating, photoUrl, description } = req.body;
+ 
+  House.findById(_id).then((singleHome)=>{
+    singleHome.house=house;
+    singleHome.price=price;
+    singleHome.location=location;
+    singleHome.rating=rating;
+    singleHome.photoUrl=photoUrl;
+    singleHome.description=description;
+    singleHome.save().then(() => {  
+      console.log("home updated") 
+      
+    })
+    .catch(err=>{
+      console.log("error while updating home",err)
+    })
 
-  const home = new House(
-    house,
-    price,
-    location,
-    rating,
-    photoUrl,
-    description,
-    _id,
-  );
-
-  //save() is async so sometimes remaining code gets executed before it so used then promise
-
-  home
-    .save()
-    .then(() => {
       res.redirect("/host/host-home-list");
     })
-    .catch((err) => {
-      console.log("error occured", err);
-    });
+    .catch(err=>{
+      console.log("error while finding home",err)
+    })
+   
+
+  //save() is async so sometimes remaining code gets executed before it so used then promise
 };
 
 exports.applyDeleteHomes = (req, res, next) => {
-  const deleteId = req.params.deleteId;
+  const deleteId = req.params.deleteId; 
 
-  House.deleteHome(deleteId)
+  House.findByIdAndDelete(deleteId)
     .then(() => {
       res.redirect("/host/host-home-list");
     })

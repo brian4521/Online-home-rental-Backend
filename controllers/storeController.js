@@ -18,30 +18,20 @@ exports.bookings = (req, res, next) => {
 };
 exports.favouritelist = (req, res, next) => {
   // Using your model's viewFavourite method
-  Favourite.viewFavourite()
-    .then((favouriteitems) => {
+  Favourite.find()
+  .populate('houseid')
+  .then((favouriteitems) => {
       // Extracting houseId strings from the favourites collection
       const favouriteIdList = favouriteitems.map((fav) =>
-        fav.houseId.toString(),
+        fav.houseid
       );
 
-      // Using your House model's find method
-      House.find().then((homeRegistered) => {
-        console.log("IDs in Favourites:", favouriteIdList);
-        console.log("Total Homes in DB:", homeRegistered.length);
-
-        // Filtering the full home list based on what is in the favouriteIdList
-        const allFavouriteList = homeRegistered.filter((home) =>
-          favouriteIdList.includes(home._id.toString()),
-        );
-
-        // Rendering your specific view path and variable
         res.render("store/favlist", {
-          allFavouriteList: allFavouriteList,
+          allFavouriteList:favouriteIdList,
           pageTitle: "My Favourites",
           currentPage: "favourites",
         });
-      });
+      
     })
     .catch((err) => {
       console.log("Error loading favourites:", err);
@@ -69,26 +59,30 @@ exports.homeDetail = (req, res, next) => {
 
 exports.favouritepath = (req, res, next) => {
   const favid = req.body.id.trim();
-  console.log("favourite id is here :", favid);
-  const fav = new Favourite(favid);
 
-  fav
-    .save()
-    .then((res) => {
-      console.log("fav id saved", res);
-    })
-    .catch((err) => {
-      console.log("error occured while adding favourite", err);
-    })
-    .finally(() => {
-      res.redirect("/favourite");
-    });
+  Favourite.findOne({houseid: favid}).then((resp)=>{
+    if(resp){
+      console.log("already exist favourite",resp)
+    }
+    else{
+      const fav = new Favourite({houseid: favid})
+      fav.save().then((saved)=>{
+        console.log("favourite saved succesfully", saved)
+      })
+      .catch(err=>{
+        console.log("error occured while saving favourite id",err)
+      })
+    }
+    res.redirect("/favourite");
+
+  })
+
 };
 
 exports.deleteFavourite = (req, res, next) => {
   const homeId = req.params.homeId;
   console.log("delete favourite id is", homeId);
-  Favourite.deleteHome(homeId)
+  Favourite.findOneAndDelete({houseid:homeId})
     .then((res) => {
       console.log("fav item is deleted", res);
     })
