@@ -39,6 +39,7 @@ exports.favouritelist = (req, res, next) => {
 };
 
 exports.indexFetch = (req, res, next) => {
+  console.log("session info is", req.session.isLoggedIn)
   House.find().then((homeRegistered) => {
     res.render("store/index", { homeRegistered, isLoggedIn : req.isLoggedIn });
   });
