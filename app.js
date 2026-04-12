@@ -7,6 +7,7 @@ let app=express()
 let {pagenotFound}=require('./controllers/404pagecontroller')
 
 const { default: mongoose } = require("mongoose")
+const authRouter = require("./Routes/authRoute")
 
 
 app.set('view engine', 'ejs')
@@ -30,9 +31,25 @@ app.use((req,res,next)=>{
 
 app.use(express.urlencoded())
 
+app.use((req, res, next) => {
+  console.log("cookie is",req.get('Cookie'))
+  req.isLoggedIn = req.get('Cookie')?.includes("isLoggedIn=true") || false;
+  console.log(req.isLoggedIn);
+  next();
+});
 
 app.use(storeRouter)
-app.use("/host",hostRouter)
+app.use("/host", (req,res,next)=>{
+  if(req.isLoggedIn){
+    next()
+  }
+  else{
+    res.redirect("/login")
+  }
+})
+
+app.use("/host", hostRouter)
+app.use(authRouter)
 
 app.use((req,res,next)=>{
   res.status(400).render('404page')

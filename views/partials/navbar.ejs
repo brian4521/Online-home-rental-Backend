@@ -7,6 +7,7 @@
       <a href="/" class="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">
         Index
       </a>
+      <% if(isLoggedIn){ %>
        <a href="/homes" class="bg-green-500  px-4 py-2 rounded hover:bg-blue-600">
         home-list
       </a>
@@ -25,6 +26,21 @@
       <a href="/host/home " class="bg-green-500 px-4 py-2 rounded hover:bg-green-600">
         Add Home
       </a>
+      <% } %>
+      
+      <% if (!isLoggedIn) { %>
+      <a href="/login" class="bg-yellow-500 px-4 py-2 rounded hover:bg-yellow-600">
+       Login
+      </a>
+      <% } else { %>
+     <div class="inline-block">
+     <form action="/logout" method="POST">
+      <button type="submit" class="bg-yellow-500 px-4 py-2 rounded hover:bg-yellow-600">Logout</button>
+     </form> 
+     </div>
+
+      <% } %>
+
     </div>
 
   </div>

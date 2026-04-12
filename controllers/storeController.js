@@ -7,14 +7,14 @@ exports.homie = (req, res, next) => {
   House.find().then((homeRegistered) => {
     console.log("this is home list data", homeRegistered);
 
-    res.render("store/home-list", { homeRegistered });
+    res.render("store/home-list", { homeRegistered, isLoggedIn : req.isLoggedIn });
   });
 
   // res.sendFile(path.join(rootDir,"views","home.html"))
 };
 
 exports.bookings = (req, res, next) => {
-  res.render("store/bookings");
+  res.render("store/bookings",{isLoggedIn : req.isLoggedIn});
 };
 exports.favouritelist = (req, res, next) => {
   // Using your model's viewFavourite method
@@ -28,8 +28,7 @@ exports.favouritelist = (req, res, next) => {
 
         res.render("store/favlist", {
           allFavouriteList:favouriteIdList,
-          pageTitle: "My Favourites",
-          currentPage: "favourites",
+          isLoggedIn : req.isLoggedIn
         });
       
     })
@@ -41,7 +40,7 @@ exports.favouritelist = (req, res, next) => {
 
 exports.indexFetch = (req, res, next) => {
   House.find().then((homeRegistered) => {
-    res.render("store/index", { homeRegistered });
+    res.render("store/index", { homeRegistered, isLoggedIn : req.isLoggedIn });
   });
 };
 
@@ -53,7 +52,7 @@ exports.homeDetail = (req, res, next) => {
       return res.send("house not found");
     }
     // console.log(foundHome)
-    res.render("store/home-detail", { foundHome });
+    res.render("store/home-detail", { foundHome, isLoggedIn : req.isLoggedIn });
   });
 };
 
@@ -83,7 +82,7 @@ exports.deleteFavourite = (req, res, next) => {
   const homeId = req.params.homeId;
   console.log("delete favourite id is", homeId);
   Favourite.findOneAndDelete({houseid:homeId})
-    .then((res) => {
+    .then((result) => {
       console.log("fav item is deleted", res);
     })
     .catch((err) => {
