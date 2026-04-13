@@ -3,32 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register Home</title>
-    <link rel="stylesheet" href="/home.css">
+  <title>Login</title>
+  <link rel="stylesheet" href="/home.css">
   <link rel="stylesheet" href="/output.css">
-  
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+<body class="bg-gray-100">
+
   <%- include('../partials/navbar') %>
-  <header>
-    <h1>Login with your detail</h1>
 
-  </header>
-   
-  <Main>
-      <form action="/login" method="POST">
-   
-        
-     <input type="text" name="username" placeholder="Enter Username or Email" />
-     
-     
-     <input type="password" name="password"  placeholder="Enter your password" />
-     
-     <input type="submit" value="login in" />
-    </form>
+  <div class="flex justify-center items-center min-h-screen">
 
-  </Main>
-  
+    <div class="bg-white shadow-md rounded-xl p-6 w-full max-w-sm">
+
+      <h1 class="text-xl font-semibold mb-4 text-center">
+        Login
+      </h1>
+
+      <form action="/login" method="POST" class="space-y-3">
+
+        <input 
+          type="text" 
+          name="username" 
+          placeholder="Username or Email"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
+
+        <input 
+          type="password" 
+          name="password"  
+          placeholder="Password"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
+
+        <button 
+          type="submit"
+          class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+        >
+          Login
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
 </body>
 </html>

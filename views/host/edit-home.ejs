@@ -4,34 +4,93 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register Home</title>
-    <link rel="stylesheet" href="/home.css">
+  <link rel="stylesheet" href="/home.css">
   <link rel="stylesheet" href="/output.css">
-  
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+<body class="bg-gray-100">
+
   <%- include('../partials/navbar') %>
-  <header>
-    <h1><%= editing ? "Edit your home here :" : "Register your property here:" %></h1>
 
-  </header>
-   
-  <Main>
-      <form action="/host/<%= editing ? "edit-home" : "homes" %>" method="POST">
-      <input type="hidden" name="_id" value="<%= editing ? foundHome._id : '' %>"  />
-        
-     <input type="text" name="house" value="<%= editing ? foundHome.house : '' %>" placeholder="enter your property" />
-     
-     
-     <input type="text" name="price" value="<%= editing ? foundHome.price : '' %>" placeholder="enter your price" />
-     <input type="text" name="location" value="<%= editing ? foundHome.location : '' %>" placeholder="enter location" />
-     <input type="text" name="rating" value="<%= editing ? foundHome.rating : '' %>" placeholder="enter rating" />
-     <input type="text" name="photoUrl" value="<%= editing ? foundHome.photoUrl : '' %>" placeholder="enter photo url" />
-     <textarea type="text" name="description"  placeholder="Describe" ><%= editing ? foundHome.description : '' %></textarea>
-     <input type="submit" value="<%= editing ? "Edit" : " Submit" %>" />
-    </form>
+  <div class="flex justify-center items-center min-h-screen">
+    
+    <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-lg">
+      
+      <!-- Heading -->
+      <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+        <%= editing ? "Edit your home 🏡" : "Register your property 🏡" %>
+      </h1>
 
-  </Main>
-  
+      <!-- Form -->
+      <form action="/host/<%= editing ? "edit-home" : "homes" %>" method="POST" class="space-y-4">
+
+        <input type="hidden" name="_id" value="<%= editing ? foundHome._id : '' %>" />
+
+        <!-- Property Name -->
+        <input 
+          type="text" 
+          name="house" 
+          value="<%= editing ? foundHome.house : '' %>" 
+          placeholder="Property Name"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+
+        <!-- Price -->
+        <input 
+          type="text" 
+          name="price" 
+          value="<%= editing ? foundHome.price : '' %>" 
+          placeholder="Price ($)"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+
+        <!-- Location -->
+        <input 
+          type="text" 
+          name="location" 
+          value="<%= editing ? foundHome.location : '' %>" 
+          placeholder="Location"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+
+        <!-- Rating -->
+        <input 
+          type="text" 
+          name="rating" 
+          value="<%= editing ? foundHome.rating : '' %>" 
+          placeholder="Rating (1-5)"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+
+        <!-- Image URL -->
+        <input 
+          type="text" 
+          name="photoUrl" 
+          value="<%= editing ? foundHome.photoUrl : '' %>" 
+          placeholder="Image URL"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+
+        <!-- Description -->
+        <textarea 
+          name="description" 
+          placeholder="Describe your property..."
+          class="w-full p-3 border rounded-lg h-28 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+        ><%= editing ? foundHome.description : '' %></textarea>
+
+        <!-- Button -->
+        <button 
+          type="submit"
+          class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition duration-300"
+        >
+          <%= editing ? "Update Property" : "Submit Property" %>
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+
 </body>
 </html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/home.css">
+  <link rel="stylesheet" href="/output.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .item{
+      margin-left: 5px;
+    }
+
+  </style>
+</head>
+
+<body class="bg-gray-100">
+
+  <%- include('../partials/navbar') %>
+
+  <div class="flex justify-center items-center min-h-screen">
+
+    <div class="bg-white shadow-md rounded-xl p-6 w-full max-w-sm">
+
+      <h1 class="text-xl font-semibold mb-4 text-center">
+        Register if you are new
+      </h1>
+
+      <form action="/" method="POST" class="space-y-3" autocomplete="off" >
+
+        <input 
+          type="text" 
+          name="firstName" 
+          placeholder="Enter your first name"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
+        <input 
+          type="text" 
+          name="lastName" 
+          placeholder="Enter your last name"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
+
+
+
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="Enter your email"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
+
+        <input 
+          type="password" 
+          name="password"  
+          placeholder="Password"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
+        <input 
+          type="password" 
+          name="confirmPassword"  
+          placeholder="Enter the same Password"
+          class="w-full p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
+        <div class="">
+
+          <div style="align-items: center;">User Type:</div>
+          <label for=""><input type="radio" id="guest" name="userType" value="guest"><span class="item">Guest</span></label>
+          <label for=""><input type="radio" id="host" name="userType" value="host"><span  class="item">Host</span></label>
+
+        </div>
+        
+          <input type="checkbox" id="policies" name="policies" >
+          <label for="policies">i agree to terms and condition</label>
+
+
+
+        <button 
+          type="submit"
+          class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+        >
+          Sign Up
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

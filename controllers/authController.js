@@ -22,3 +22,17 @@ exports.loggedout=(req,res,next)=>{
   })
  
 }
+
+exports.getsignup = (req, res, next) => {
+   res.render("auth/signup",{isLoggedIn : req.isLoggedIn});
+
+
+};
+
+
+
+exports.postsignup = (req, res, next) => {
+   res.render("auth/signup",{isLoggedIn : req.isLoggedIn});
+
+
+};
