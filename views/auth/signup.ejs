@@ -30,16 +30,7 @@
       <!-- Form -->
       <form action="/signup" method="POST" class="space-y-4" autocomplete="off">
            <!-- error message -->
-          <% if (errors.length > 0) { %>
-            <div class="bg-red-50 border-l-4 border-red-500 p-3 mb-4 rounded shadow-sm">
-              <ul class="list-disc list-inside text-sm text-red-600">
-                <% errors.forEach(function(error) { %>
-                  <li><%= error %></li>
-                <% }); %>
-              </ul>
-            </div>
-          <% } %>
-
+         <%- include('../partials/errorsection') %>
         <!-- Name Fields -->
         <div class="flex gap-3">
 

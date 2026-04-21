@@ -14,8 +14,10 @@
   <%- include('../partials/navbar') %>
 
   <div class="flex justify-center items-center min-h-screen">
+    
 
     <div class="bg-white shadow-md rounded-xl p-6 w-full max-w-sm">
+        <%- include('../partials/errorsection') %>
 
       <h1 class="text-xl font-semibold mb-4 text-center">
         Login
@@ -25,8 +27,9 @@
 
         <input 
           type="text" 
-          name="username" 
-          placeholder="Username or Email"
+          name="email" 
+          value="<%= oldInput ? oldInput.email : '' %>"
+          placeholder="Enter your email"
           class="w-full p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
         />
 

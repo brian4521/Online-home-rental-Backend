@@ -1,9 +1,18 @@
 const { check, validationResult } = require("express-validator");
+const User = require("../models/usermodel");
+
+const bcrypt=require('bcrypt')
 
 
-exports.getlogin = (req, res, next) => {
-   res.render("auth/login",{isLoggedIn : req.isLoggedIn});
+exports.getlogin = (req, res, next) => {  
+   res.render("auth/login",{
+      isLoggedIn : req.isLoggedIn,
+       errors: [],
+       oldInput: {email:""},
+   });
+ 
 
+   // ^^^remember to add the same key value pair for both get and post.if used in post method then same empy key value pair should be in get as well
 
 };
 
@@ -75,16 +84,45 @@ exports.postsignup = [
       })
    }
 
-  res.redirect('/login')
+
+  bcrypt.hash(password,12)
+  .then(hashedPassword=>{
+     const newUser = new User({firstName, lastName, email, password : hashedPassword, userType})
+     return newUser.save()  
+   //   used return because next then is outside its scope
+
+  })
+  .then(()=>{
+       res.redirect('/login')
+   })
+   .catch(err=>{
+         return res.status(422).render('auth/signup',{
+         isLoggedIn: false,
+         errors: [err.message],
+         oldInput: {firstName, lastName, email, password, userType}
+      }) 
+   })
+
 
 }];
 
-exports.loggedin=(req,res,next) =>{
+exports.loggedin= async (req,res,next)=>{
   console.log(req.body)
 
-  req.session.isLoggedIn = true;  
+  const {email, password} = req.body
+
+  const user = await User.findOne({email})
+  if(!user){
+    return res.status(422).render('auth/login',{
+         isLoggedIn: false,
+         errors: ["email not found"],
+         oldInput: {email}
+      }) 
+  }
+
+//   req.session.isLoggedIn = true;  
   // res.cookie("isLoggedIn",true)
-  res.redirect("/")
+//   res.redirect("/")
 }
 
 
