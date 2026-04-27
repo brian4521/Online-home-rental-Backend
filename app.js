@@ -43,7 +43,7 @@ app.use(express.urlencoded())
 app.use(session({
     secret : "hello this is me",
     resave : false,
-    saveUninitialized : true,
+    saveUninitialized : false,
     store 
 }))
 
