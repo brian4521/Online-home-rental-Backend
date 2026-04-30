@@ -9,6 +9,7 @@ exports.getlogin = (req, res, next) => {
       isLoggedIn: req.isLoggedIn,
       errors: [],
       oldInput: { email: "" },
+      user:{}
    });
 
 
@@ -80,7 +81,8 @@ exports.postsignup = [
          return res.status(422).render('auth/signup', {
             isLoggedIn: false,
             errors: errors.array().map(err => err.msg),
-            oldInput: { firstName, lastName, email, password, userType }
+            oldInput: { firstName, lastName, email, password, userType },
+            user:{}
          })
       }
 
@@ -99,7 +101,8 @@ exports.postsignup = [
             return res.status(422).render('auth/signup', {
                isLoggedIn: false,
                errors: [err.message],
-               oldInput: { firstName, lastName, email, password, userType }
+               oldInput: { firstName, lastName, email, password, userType },
+               user:{}
             })
          })
 
@@ -117,7 +120,8 @@ exports.loggedin = async (req, res, next) => {
       return res.status(422).render('auth/login', {
          isLoggedIn: false,
          errors: ["email not found"],
-         oldInput: { email }
+         oldInput: { email },
+         user:{}
       })
    }
 
@@ -126,12 +130,15 @@ exports.loggedin = async (req, res, next) => {
       return res.status(422).render('auth/login',{
          isLoggedIn: false,
          errors: ["entered password is incorrect"],
-         oldInput: { email }
+         oldInput: { email },
+         user:{}
          
       })
    }
 
      req.session.isLoggedIn = true;  
+     req.session.user=user
+     await req.session.save()
 
      res.redirect("/")
 }
@@ -149,7 +156,8 @@ exports.getsignup = (req, res, next) => {
    res.render("auth/signup", {
       isLoggedIn: req.isLoggedIn,
       errors: [],
-      oldInput: { firstName: "", lastName: "", email: "", password: "", userType: "" }
+      oldInput: { firstName: "", lastName: "", email: "", password: "", userType: "" },
+      user:{}
    });
 
 

@@ -4,14 +4,14 @@ const House = require("../models/homes");
 const { error } = require("console");
 
 exports.homeRegister = (req, res, next) => {
-  res.render("host/edit-home", { editing: false, isLoggedIn : req.isLoggedIn });
+  res.render("host/edit-home", { editing: false, isLoggedIn : req.isLoggedIn, user: req.session.user, });
 };
 
 exports.hosthomes = (req, res, next) => {
   House.find().then((homeRegistered) => {
     console.log("here is homeregistered data dfvsdgvs", homeRegistered);
 
-    res.render("host/host-home-list", { homeRegistered, isLoggedIn : req.isLoggedIn });
+    res.render("host/host-home-list", { homeRegistered, isLoggedIn : req.isLoggedIn, user: req.session.user, });
   });
 
   // res.sendFile(path.join(rootDir,"views","home.html"))
@@ -54,7 +54,7 @@ exports.editHomes = (req, res, next) => {
       return res.redirect("/host/host-home-list");
     }
     console.log("Edit home was found", foundHome);
-    res.render("host/edit-home", { editing, foundHome, isLoggedIn : req.isLoggedIn });
+    res.render("host/edit-home", { editing, foundHome, isLoggedIn : req.isLoggedIn, user: req.session.user, });
   });
 };
 
